@@ -10,3 +10,7 @@
 #modal-registrasi-id {
     font-weight: bold;
 }
+
+.error {
+    color: red;
+}

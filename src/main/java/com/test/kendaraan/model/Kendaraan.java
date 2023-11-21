@@ -4,22 +4,27 @@ import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.Id;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.NotNull;
 
 @Entity
 public class Kendaraan {
+    @Max(value = 10, message = "maximum 10 character")
+    @NotNull
     @Id
-    private String          noRegistrasi;
+    private String noRegistrasi;
 
-    private String          namaPemilik;
-    private String          alamat;
-    private String          merk;
-    private Integer         tahunPembuatan;
-    private Integer         kapasitasSelinder;
-    
+    @Max(value = 20, message = "maximum 20 character")
+    private String namaPemilik;
+    private String alamat;
+    private String merk;
+    private Integer tahunPembuatan;
+    private Integer kapasitasSelinder;
+
     @Enumerated(EnumType.STRING)
-    private WarnaKendaraan  warnaKendaraan;
-    
-    private String          bahanBakar;
+    private WarnaKendaraan warnaKendaraan;
+
+    private String bahanBakar;
 
     public String getBahanBakar() {
         return bahanBakar;
@@ -83,5 +88,5 @@ public class Kendaraan {
 
     public void setWarnaKendaraan(WarnaKendaraan warnaKendaraan) {
         this.warnaKendaraan = warnaKendaraan;
-    }    
+    }
 }

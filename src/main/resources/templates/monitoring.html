@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+    <head>
+        <title>Monitoring</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"/>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"  crossorigin="anonymous"/>
+        <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
+        <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"  crossorigin="anonymous"></script>
+        
+    </head>
+    <body>        
+        <div class="container-fluid">
+        <div class="header row" id='header'>
+            <div class="col-md-10"><h2>Aplikasi Data Kendaraan</h2></div>
+            <div class="col-md-2 text-right">
+                <button class="btn btn-primary" id="btn-search">Search</button>
+                <button class="btn btn-primary" id="btn-add" th:href="@{/add}">Add</button>
+            </div>
+        </div>
+
+            <table class="table table-striped">
+                <thead class="table-primary">
+                    <tr>
+                        <th scope="col" class="col-md-1">No.</th>
+                        <th scope="col" class="col-md-1">No Registrasi</th>
+                        <th scope="col" class="col-md-2">Nama Pemilik</th>
+                        <th scope="col" class="col-md-1">Merk Kendaraan</th>
+                        <th scope="col" class="col-md-1">Tahun Pembuatan</th>
+                        <th scope="col" class="col-md-1">Kapasitas</th>
+                        <th scope="col" class="col-md-1">Warna</th>
+                        <th scope="col" class="col-md-1">Bahan Bakar</th>
+                        <th scope="col" class="col-md-3">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <th:block th:each="kendaraan, rowStat : ${kendaraanList}">
+                        <tr>
+                            <td>[[${rowStat.index + 1}]]</td>
+                            <td>[[${kendaraan.noRegistrasi}]]</td>
+                            <td>[[${kendaraan.namaPemilik}]]</td>
+                            <td>[[${kendaraan.merk}]]</td>
+                            <td>[[${kendaraan.tahunPembuatan}]]</td>
+                            <td>[[${kendaraan.kapasitasSelinder}]]</td>
+
+                            <td>[[${kendaraan.warnaKendaraan}]]</td>
+                            <td>[[${kendaraan.bahanBakar}]]</td>
+                            <td>
+                                <a th:href="@{/detail(noRegistrasi=${kendaraan.noRegistrasi})}">Detail</a>
+                                <a th:href="@{/edit(noRegistrasi=${kendaraan.noRegistrasi})}">Edit</a>
+                                <a href="#" id="delete" data-toggle="modal" th:attr="data-myattr=${kendaraan.noRegistrasi}" 
+                                     data-target="#delete-modal">Delete</a> 
+                            </td>
+
+                        </tr>
+                    </th:block>
+                    
+                </tbody>
+            </table>
+        
+            <div class="modal" tabindex="-1" id="delete-modal">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title">Delete</h5>
+                    </div>
+                    <div class="modal-body">
+                      <p>Anda yakin ingin menghapus data  <span id='modal-registrasi-id'></span> ?</p>
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-danger" data-dismiss="modal" id="confirm-delete">YES</button>
+                      <button type="button" class="btn btn-secondary" data-dismiss="modal">NO</button>
+                    </div>
+                  </div>
+                </div>
+            </div>            
+            
+        </div>
+        
+        <script type="text/javascript">
+                var tempNoRegistrasi;
+   
+                    $("#btn-add").on("click", function(e) {
+                        window.location.href="/add";
+                    });
+                
+                $(document).ready(function() {
+                    $("#confirm-delete").on("click", function(e) {
+                        $.ajax({
+                          type: "GET",
+                          url: "/delete",
+                          data: {
+                            noRegistrasi: tempNoRegistrasi
+                          },
+                          success: function( result ) {
+                            alert("Data Kendaraan dihapus");
+                          }
+                        });                    
+                    });
+                                        
+                    $("#delete-modal").on("show.bs.modal", function(e) {
+                        var obj = $(e.relatedTarget);
+                        var recipient = obj.data('myattr');
+                        var modal = $(this);
+                        modal.find('#modal-registrasi-id').text(recipient);
+                        tempCustId = recipient;
+                    });
+                    
+
+                });
+        </script>
+        
+    </body>
+</html>

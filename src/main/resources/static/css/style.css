@@ -1,0 +1,12 @@
+.container {
+    padding: 20px;
+    background-color: #f0f7ff;
+}
+
+.header {
+    margin: 20px;
+}
+
+#modal-registrasi-id {
+    font-weight: bold;
+}

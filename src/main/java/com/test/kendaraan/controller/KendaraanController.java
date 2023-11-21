@@ -57,7 +57,8 @@ public class KendaraanController {
             kendaraanService.addKendaraan(kendaraan);
         }
 
-        return "add-confirmation";
+        // return "add_confirmation";
+        return "monitoring";
     }
 
     @GetMapping("/edit")

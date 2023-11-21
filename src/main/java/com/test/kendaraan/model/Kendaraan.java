@@ -6,15 +6,16 @@ import javax.persistence.Enumerated;
 import javax.persistence.Id;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 @Entity
 public class Kendaraan {
-    @Max(value = 10, message = "maximum 10 character")
+    @Size(min = 1, max = 10, message = "minimum 1 character and maximum 10 character")
     @NotNull
     @Id
     private String noRegistrasi;
 
-    @Max(value = 20, message = "maximum 20 character")
+    @Size(min = 1, max = 20, message = "minimum 1 character and maximum 20 character")
     private String namaPemilik;
     private String alamat;
     private String merk;

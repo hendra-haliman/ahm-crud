@@ -13,40 +13,43 @@
         
     </head>
     <body>
-
-        <div class="container">
-            <div class="header row">
-                <div class="col-md-12"><h2>Detail Data Kendaraan</h2></div>
-            </div>
-            <div class="row">
-                <div class="col-md-3">No Registrasi</div>
-                <div class="col-md-3"></div>
-                <div class="col-md-3">Tahun Pembuatan</div>
-                <div class="col-md-3"></div>
-            </div>
-       
-            
-            <div class="row">
-                <div class="col-md-3">Nama Pemilik</div>
-                <div class="col-md-3"></div>
-                <div class="col-md-3">Kapasitas Selinder</div>
-                <div class="col-md-3"></div>
-            </div>
-
-            <div class="row">
-                <div class="col-md-3">Merk Kendaraan</div>
-                <div class="col-md-3"></div>
-                <div class="col-md-3">Warna Kendaraan</div>
-                <div class="col-md-3"></div>
-            </div>
-
-            <div class="row">
-                <div class="col-md-3">Alamat Pemilik Kendaraan</div>
-                <div class="col-md-3"></div>
-                <div class="col-md-3"></div>
-                <div class="col-md-3"></div>
-            </div>            
->>>>>>> 5ba00e04d6a5546f91aca813d41cf5ec27d25f1c
+        <div class="container-fluid">
+            <table class="table table-secondary table-striped">
+                <thead>
+                    <tr>
+                        <th>Detail Data Kendaraan</th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="col-md-2">No Registrasi</td>
+                        <td class="col-md-4" th:text="${kendaraan.noRegistrasi}"></td>
+                        <td class="col-md-2">Tahun Pembuatan</td>
+                        <td class="col-md-4" th:text="${kendaraan.tahunPembuatan}"></td>    
+                    </tr>
+                    <tr>
+                        <td class="col-md-2">Nama Pemilik</td>
+                        <td class="col-md-4" th:text="${kendaraan.namaPemilik}"></td>
+                        <td class="col-md-2">Kapasitas Selinder</td>
+                        <td class="col-md-4" th:text="${kendaraan.kapasitasSelinder}"></td>    
+                    </tr>
+                    <tr>
+                        <td class="col-md-2">Merk Kendaraan</td>
+                        <td class="col-md-4" th:text="${kendaraan.merk}"></td>
+                        <td class="col-md-2">Warna Kendaraan</td>
+                        <td class="col-md-4" th:text="${kendaraan.warnaKendaraan}"></td>    
+                    </tr>
+                    <tr>
+                        <td class="col-md-2">Alamat Pemilik Kendaraan</td>
+                        <td class="col-md-4" th:text="${kendaraan.alamat}"></td>
+                        <td class="col-md-2"></td>
+                        <td class="col-md-4"></td>    
+                    </tr>
+                </tbody>
+            </table>
         </div>
         
     </body>

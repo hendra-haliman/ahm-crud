@@ -1,92 +1,110 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-    <head>
-        <title>Tambah Data</title>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"/>
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"  crossorigin="anonymous"/>
-        <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
-        <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"  crossorigin="anonymous"></script>
-        
-    </head>
-    <body>
-        <div class="container">
-            <div class="header row">
-                <div class="col-md-12"><h2>Add Data Kendaraan</h2></div>
-            </div>
-            <form th:action="@{/saveKendaraan}" method="post" th:object="${kendaraan}" class="myform">
-              <div class="form-row">
-                <div class="form-group col-md-6">
-                  <label for="noRegistrasi">No Registrasi Kendaraan</label>
-                  <input type="text" th:field="*{noRegistrasi}" class="form-control" id="noRegistrasi">
-                  <span th:if="${#fields.hasErrors('noRegistrasi')}" th:errors="*{noRegistrasi}" class="error"></span>
-                </div>
-                <div class="form-group col-md-6">
-                  <label for="custName">Tahun Pembuatan</label>
-                  <input type="text" th:field="*{tahunPembuatan}" class="form-control" id="tahunPembuatan">
-                </div>                  
-              </div>
-                
-              <div class="form-row">    
-                <div class="form-group col-md-6">
-                  <label for="custName">Nama Pemilik</label>
-                  <input type="text" th:field="*{namaPemilik}" class="form-control" id="namaPemilik">
-                  <span th:if="${#fields.hasErrors('namaPemilik')}" th:errors="*{namaPemilik}" class="error"></span>
-                </div>
 
-                <div class="form-group col-md-6">
-                  <label for="Kapasitas Selinder">Kapasitas Selinder</label>
-                  <input type="text" th:field="*{kapasitasSelinder}" class="form-control" id="kapasitasSelinder">
-                </div>
-              </div>
-                
-              <div class="form-row">
-                <div class="form-group col-md-6">
-                  <label for="email">Merk Kendaraan</label>
-                  <input type="text" th:field="*{merk}" class="form-control" id="merk">
-                </div>                  
-                <div class="form-group col-md-6">
-                  <label for="warnaKendaraan">Warna Kendaraan</label>
-                  <select class="form-control" th:field="*{warnaKendaraan}" id="warnaKendaraan">
-                      <option value="" hidden>Select</option>
-                      <!--TODO: add looping for options-->
-                  </select>
-                </div>
-              </div>
-                
-              <div class="form-row">                
-                <div class="form-group col-md-6">
-                     <label for="alamat">Alamat</label>
-                        <textarea th:field="*{alamat}" class="form-control" id="alamat" rows="4"></textarea>
-                </div>
-                <div class="form-group col-md-6">
-                  <label for="bahanBakar">Bahan Bakar</label>
-                  <input type="text" th:field="*{bahanBakar}" class="form-control" id="bahanBakar">
-                </div>                  
-              </div>
-                
-              <div class="form-row">
-                  <div class="col-md-2"><button class="btn btn-success" id="btn-submit">Simpan</button></div>
-                  <div class="col-md-10"><button class="btn btn-outline-secondary" id="btn-cancel">Cancel</button></div>
-              </div>                                  
-            </form>    
-            
+<head>
+  <title>Tambah Data</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
+    crossorigin="anonymous" />
+  <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}" />
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"
+    crossorigin="anonymous"></script>
+
+</head>
+
+<body>
+  <div class="container">
+    <!--Alert sukses atau fail-->
+    <div th:switch="${message}">
+      <div th:case="'Success'" class="alert alert-success">
+        <strong>Success!</strong> Data kendaraan milik <span th:text="${pemilik}"></span> berhasil disimpan.
+      </div>
+      <div th:case="'Failed'" class="alert alert-danger">
+        <strong>Failure!</strong> Operation failed. Please try again
+      </div>
+    </div>
+
+    <div class="header row">
+      <div class="col-md-12">
+        <h2>Add Data Kendaraan</h2>
+      </div>
+    </div>
+
+    <form th:action="@{/saveKendaraan}" method="post" th:object="${kendaraan}" class="myform">
+      <div class="form-row">
+        <div class="form-group col-md-6">
+          <label for="noRegistrasi">No Registrasi Kendaraan</label>
+          <input type="text" th:field="*{noRegistrasi}" class="form-control" id="noRegistrasi">
+          <span th:if="${#fields.hasErrors('noRegistrasi')}" th:errors="*{noRegistrasi}" class="error"></span>
+        </div>
+        <div class="form-group col-md-6">
+          <label for="custName">Tahun Pembuatan</label>
+          <input type="text" th:field="*{tahunPembuatan}" class="form-control" id="tahunPembuatan">
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group col-md-6">
+          <label for="custName">Nama Pemilik</label>
+          <input type="text" th:field="*{namaPemilik}" class="form-control" id="namaPemilik">
+          <span th:if="${#fields.hasErrors('namaPemilik')}" th:errors="*{namaPemilik}" class="error"></span>
         </div>
 
-        <script type="text/javascript">
-                $(document).ready(function() {
-                    $("#btn-add").on("click", function(e) {
-                        window.location.href="/add";
-                    });
-                    $("#btn-cancel").on("click", function(e) {
-                        window.location.href="/monitoring";
-                    });                    
-                });
-                
-        </script>
-    </body>
+        <div class="form-group col-md-6">
+          <label for="Kapasitas Selinder">Kapasitas Selinder</label>
+          <input type="text" th:field="*{kapasitasSelinder}" class="form-control" id="kapasitasSelinder">
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group col-md-6">
+          <label for="email">Merk Kendaraan</label>
+          <input type="text" th:field="*{merk}" class="form-control" id="merk">
+        </div>
+        <div class="form-group col-md-6">
+          <label for="warnaKendaraan">Warna Kendaraan</label>
+          <select class="form-control" th:field="*{warnaKendaraan}" id="warnaKendaraan">
+            <option value="" hidden>Select</option>
+            <!--TODO: add looping for options-->
+          </select>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group col-md-6">
+          <label for="alamat">Alamat</label>
+          <textarea th:field="*{alamat}" class="form-control" id="alamat" rows="4"></textarea>
+        </div>
+        <div class="form-group col-md-6">
+          <label for="bahanBakar">Bahan Bakar</label>
+          <input type="text" th:field="*{bahanBakar}" class="form-control" id="bahanBakar">
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="col-md-2"><button class="btn btn-success" id="btn-submit">Simpan</button></div>
+        <div class="col-md-10"><button class="btn btn-outline-secondary" name="action" id="btn-cancel" value="cancel">Cancel</button></div>
+      </div>
+    </form>
+
+  </div>
+
+  <script type="text/javascript">
+    $(document).ready(function () {
+      $("#btn-add").on("click", function (e) {
+        window.location.href = "/add";
+      });
+      $("#btn-cancel").on("click", function (e) {
+        e.preventDefault;
+        window.location.href = "/monitoring";
+      });
+    });
+
+  </script>
+</body>
 
 </html>

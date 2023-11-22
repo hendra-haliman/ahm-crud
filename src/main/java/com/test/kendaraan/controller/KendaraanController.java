@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 public class KendaraanController {
@@ -49,16 +50,23 @@ public class KendaraanController {
     }
 
     @PostMapping("saveKendaraan")
-    public String saveUser(@Valid @ModelAttribute("kendaraan") Kendaraan kendaraan, BindingResult errors) {
+    public String saveKendaraan(@Valid @ModelAttribute("kendaraan") Kendaraan kendaraan, BindingResult errors,
+            RedirectAttributes redirectAttributes, @RequestParam(value = "action", required = true) String action) {
+
+        if (action.equals("cancel")) {
+            return "redirect:monitoring";
+        }
 
         if (errors.hasErrors()) {
+            // redirectAttributes.addFlashAttribute("message", "Failed");
             return "add";
         } else {
+            redirectAttributes.addFlashAttribute("message", "Success");
+            redirectAttributes.addFlashAttribute("pemilik", kendaraan.getNamaPemilik());
             kendaraanService.addKendaraan(kendaraan);
         }
 
-        // return "add_confirmation";
-        return "monitoring";
+        return "redirect:add";
     }
 
     @GetMapping("/edit")

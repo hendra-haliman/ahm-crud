@@ -71,6 +71,9 @@
           <label for="warnaKendaraan">Warna Kendaraan</label>
           <select class="form-control" th:field="*{warnaKendaraan}" id="warnaKendaraan">
             <option value="" hidden>Select</option>
+            <option th:each="warnaKendaraan: ${T(com.test.kendaraan.model.WarnaKendaraan).values()}"
+                    th:value="${warnaKendaraan}"
+                    th:text="${warnaKendaraan}"></option>
             <!--TODO: add looping for options-->
           </select>
         </div>

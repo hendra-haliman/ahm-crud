@@ -33,7 +33,7 @@ public class KendaraanController {
     public String monitoring(Model model) {
         List<Kendaraan> kendaraans = kendaraanService.listKendaraan();
         model.addAttribute("kendaraanList", kendaraans);
-        return "monitoring";
+        return  "monitoring"; 
     }
 
     @GetMapping("/detail")

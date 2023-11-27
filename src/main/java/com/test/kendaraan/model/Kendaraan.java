@@ -12,13 +12,14 @@ import lombok.Data;
 @Entity
 @Data
 public class Kendaraan {
-    @Size(min = 1, max = 10, message = "minimum 1 character and maximum 10 character")
-    @NotNull
+    @Size(min = 1, max = 10, message = "Minimum 1 character and maximum 10 character")
+    @NotNull(message = "Cannot be empty")
     @Id
     private String noRegistrasi;
 
-    @Size(min = 1, max = 20, message = "minimum 1 character and maximum 20 character")
+    @Size(min = 1, max = 20, message = "Minimum 1 character and maximum 20 character")
     private String namaPemilik;
+
     private String alamat;
     private String merk;
     private Integer tahunPembuatan;

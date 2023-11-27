@@ -43,4 +43,8 @@ public class KendaraanService {
         return kendaraanRepository.save(kendaraan);
     }
     
+    public List<Kendaraan> search(String noRegistrasi) {
+        return kendaraanRepository.findByNoRegistrasiContaining(noRegistrasi);
+    }
+    
 }

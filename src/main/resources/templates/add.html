@@ -75,7 +75,6 @@
                             <option th:each="warnaKendaraan: ${T(com.test.kendaraan.model.WarnaKendaraan).values()}"
                                     th:value="${warnaKendaraan}"
                                     th:text="${warnaKendaraan}"></option>
-                            <!--TODO: add looping for options-->
                         </select>
                     </div>
                 </div>
@@ -92,7 +91,7 @@
                 </div>
 
                 <div class="form-row">
-                    <div class="col-md-2"><button class="btn btn-success" id="btn-submit">Simpan</button></div>
+                    <div class="col-md-2"><button class="btn btn-success" id="btn-submit" name="action">Simpan</button></div>
                     <div class="col-md-10"><button class="btn btn-outline-secondary" name="action" id="btn-cancel" value="cancel">Cancel</button></div>
                 </div>
             </form>

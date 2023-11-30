@@ -79,7 +79,24 @@
                   </div>
                 </div>
             </div>            
+
+            <div class="modal" tabindex="-1" id="deleted-modal">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title">Delete</h5>
+                    </div>
+                    <div class="modal-body">
+                      <p>Data <span id='modal-registrasi-id2'></span> telah dihapus.</p>
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-danger" data-dismiss="modal">OK</button>
+                    </div>
+                  </div>
+                </div>
+            </div>            
             
+
         </div>
         
         <script type="text/javascript">
@@ -98,8 +115,11 @@
                             noRegistrasi: tempNoRegistrasi
                           },
                           success: function( result ) {
-                            alert("Data Kendaraan dihapus");
-                            window.location.reload();
+                            $('#deleted-modal').modal('show');
+                            setTimeout(function(){
+                                window.location.reload();        
+                            },3000);
+                            
                           }
                         });                    
                     });
@@ -109,6 +129,7 @@
                         var recipient = obj.data('myattr');
                         var modal = $(this);
                         modal.find('#modal-registrasi-id').text(recipient);
+                        modal.find('#modal-registrasi-id2').text(recipient);
                         tempNoRegistrasi = recipient;
                     });
                     

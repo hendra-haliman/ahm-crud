@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service;
 public class KendaraanService {
     @Autowired
     KendaraanRepository kendaraanRepository;
-    
+
     public List<Kendaraan> listKendaraan() {
         return kendaraanRepository.findAll();
     }
@@ -22,29 +22,33 @@ public class KendaraanService {
         Pageable pageable = PageRequest.of(pageNo - 1, pageSize);
         return this.kendaraanRepository.findAll(pageable);
     }
-    
+
     public Kendaraan addKendaraan(Kendaraan kendaraan) {
         return kendaraanRepository.save(kendaraan);
     }
-    
+
     public void deleteKendaraan(Kendaraan kendaraan) {
         kendaraanRepository.delete(kendaraan);
     }
-    
+
     public void deleteKendaraanById(String id) {
         kendaraanRepository.deleteById(id);
     }
-    
+
     public Kendaraan findById(String id) {
-         return kendaraanRepository.findById(id).orElseThrow(() -> new RuntimeException("Kendaraan not found"));
+        return kendaraanRepository.findById(id).orElseThrow(() -> new RuntimeException("Kendaraan not found"));
     }
-    
+
     public Kendaraan updateKendaraan(Kendaraan kendaraan) {
         return kendaraanRepository.save(kendaraan);
     }
-    
+
     public List<Kendaraan> search(String noRegistrasi) {
         return kendaraanRepository.findByNoRegistrasiContaining(noRegistrasi);
     }
-    
+
+    public List<Kendaraan> searchByIdOrByNamaPemilik(String searchTerm, String namaPemilik) {
+        return kendaraanRepository.search(searchTerm, namaPemilik);
+    }
+
 }

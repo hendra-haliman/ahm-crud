@@ -1,11 +1,15 @@
 package com.test.kendaraan.controller;
 
 import com.test.kendaraan.model.Kendaraan;
+import com.test.kendaraan.model.Search;
 import com.test.kendaraan.service.KendaraanService;
+
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.validation.Valid;
 
+import org.apache.logging.log4j.util.Strings;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.StringTrimmerEditor;
 import org.springframework.data.domain.Page;
@@ -41,7 +45,10 @@ public class KendaraanController {
     @GetMapping("/monitoring")
     public String monitoring(Model model) {
         List<Kendaraan> kendaraans = kendaraanService.listKendaraan();
+        Search search = new Search();
+
         model.addAttribute("kendaraanList", kendaraans);
+        model.addAttribute("search", search);
         return "monitoring";
     }
 
@@ -85,8 +92,16 @@ public class KendaraanController {
         return "edit";
     }
 
-    @PostMapping("/edit")
-    public String updateKendaraan(@ModelAttribute Kendaraan kendaraan) {
+    @PostMapping("/editKendaraan")
+    public String updateKendaraan(@ModelAttribute Kendaraan kendaraan,
+            @RequestParam(value = "action", required = true) String action,
+            @RequestParam(value = "old_noRegistrasi", required = true) String old_noRegistrasi) {
+        if (action.equals("cancel")) {
+            return "redirect:monitoring";
+        }
+
+        kendaraanService.deleteKendaraanById(old_noRegistrasi);
+
         kendaraanService.updateKendaraan(kendaraan);
         return "redirect:/monitoring";
     }
@@ -103,6 +118,20 @@ public class KendaraanController {
     @GetMapping("/search")
     public List<Kendaraan> search(@RequestParam(name = "noRegistrasi") String noRegistrasi) {
         return kendaraanService.search(noRegistrasi);
+    }
+
+    @PostMapping("searchKendaraan")
+    public String searchKendaraan(Model model, @Valid @ModelAttribute("search") Search search) {
+        List<Kendaraan> kendaraanList;
+
+        if ((search == null) || (Strings.isEmpty(search.getSearchTerm()))) {
+            kendaraanList = kendaraanService.listKendaraan();
+        } else {
+            kendaraanList = kendaraanService.searchByIdOrByNamaPemilik(search.getSearchTerm(), search.getSearchTerm());
+        }
+
+        model.addAttribute("kendaraanList", kendaraanList);
+        return "monitoring";
     }
 
 }

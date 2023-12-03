@@ -17,13 +17,15 @@
     </head>
     <body>        
         <div class="container-fluid">
-        <div class="header row" id='header'>
-            <div class="col-md-10"><h2>Aplikasi Data Kendaraan</h2></div>
-            <div class="col-md-2 text-right">
-                <button class="btn btn-primary" id="btn-search">Search</button>
-                <button class="btn btn-primary" id="btn-add" th:href="@{/add}">Add</button>
+          <form th:action="@{/searchKendaraan}" method="post" th:object="${search}" class="myform">
+            <div class="header row" id='header'>
+                <div class="col-md-7"><h2>Aplikasi Data Kendaraan</h2></div>
+                <div class="col-md-3"><input type="text" th:field="*{searchTerm}" class="form-control" id="search"/></div>
+                <div class="col-md-2 text-right">
+                    <button class="btn btn-primary" id="btn-search" type="submit">Search</button>
+                    <button class="btn btn-primary" id="btn-add" th:href="@{/add}">Add</button>
+                </div>
             </div>
-        </div>
 
             <table class="table table-striped table-bordered">
                 <thead class="table-primary">
@@ -62,39 +64,42 @@
                     
                 </tbody>
             </table>
-        
-            <div class="modal" tabindex="-1" id="delete-modal">
-                <div class="modal-dialog">
-                  <div class="modal-content">
-                    <div class="modal-header">
-                      <h5 class="modal-title">Delete</h5>
-                    </div>
-                    <div class="modal-body">
-                      <p>Anda yakin ingin menghapus data  <span id='modal-registrasi-id'></span> ?</p>
-                    </div>
-                    <div class="modal-footer">
-                      <button type="button" class="btn btn-danger" data-dismiss="modal" id="confirm-delete">YES</button>
-                      <button type="button" class="btn btn-secondary" data-dismiss="modal">NO</button>
-                    </div>
-                  </div>
-                </div>
-            </div>            
+          </form>
 
-            <div class="modal" tabindex="-1" id="deleted-modal">
-                <div class="modal-dialog">
-                  <div class="modal-content">
-                    <div class="modal-header">
-                      <h5 class="modal-title">Delete</h5>
-                    </div>
-                    <div class="modal-body">
-                      <p>Data <span id='modal-registrasi-id2'></span> telah dihapus.</p>
-                    </div>
-                    <div class="modal-footer">
-                      <button type="button" class="btn btn-danger" data-dismiss="modal">OK</button>
-                    </div>
+
+          <div class="modal" tabindex="-1" id="delete-modal">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title">Delete</h5>
+                  </div>
+                  <div class="modal-body">
+                    <p>Anda yakin ingin menghapus data  <span id='modal-registrasi-id'></span> ?</p>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal" id="confirm-delete">YES</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">NO</button>
                   </div>
                 </div>
-            </div>            
+              </div>
+          </div>            
+          
+
+          <div class="modal" tabindex="-1" id="deleted-modal">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title">Delete</h5>
+                  </div>
+                  <div class="modal-body">
+                    <p>Data <span id='modal-registrasi-id2'></span> telah dihapus.</p>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">OK</button>
+                  </div>
+                </div>
+              </div>
+          </div>            
             
 
         </div>

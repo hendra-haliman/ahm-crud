@@ -1,10 +1,5 @@
 package com.test.kendaraan.controller;
 
-import com.test.kendaraan.model.Kendaraan;
-import com.test.kendaraan.model.Search;
-import com.test.kendaraan.service.KendaraanService;
-
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -12,7 +7,6 @@ import javax.validation.Valid;
 import org.apache.logging.log4j.util.Strings;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.StringTrimmerEditor;
-import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -20,11 +14,14 @@ import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import com.test.kendaraan.model.Kendaraan;
+import com.test.kendaraan.model.Search;
+import com.test.kendaraan.service.KendaraanService;
 
 @Controller
 public class KendaraanController {
@@ -127,7 +124,8 @@ public class KendaraanController {
         if ((search == null) || (Strings.isEmpty(search.getSearchTerm()))) {
             kendaraanList = kendaraanService.listKendaraan();
         } else {
-            kendaraanList = kendaraanService.searchByIdOrByNamaPemilik(search.getSearchTerm(), search.getSearchTerm());
+            System.out.println(search.getSearchTerm());
+            kendaraanList = kendaraanService.searchByIdOrByNamaPemilik(search.getSearchTerm());
         }
 
         model.addAttribute("kendaraanList", kendaraanList);

@@ -12,6 +12,6 @@ import com.test.kendaraan.model.Kendaraan;
 public interface KendaraanRepository extends JpaRepository<Kendaraan, String> {
     public List<Kendaraan> findByNoRegistrasiContaining(String text);
 
-    @Query("from Kendaraan where ((noRegistrasi like '%?1%') or (namaPemilik like '%?2%'))")
-    public List<Kendaraan> search(String searchTerm, String namaPemilik);
+    @Query("from Kendaraan where ((noRegistrasi like concat('%', ?1,'%')) or (namaPemilik like concat('%', ?1,'%')))")
+    public List<Kendaraan> search(String searchTerm);
 }

@@ -47,8 +47,8 @@ public class KendaraanService {
         return kendaraanRepository.findByNoRegistrasiContaining(noRegistrasi);
     }
 
-    public List<Kendaraan> searchByIdOrByNamaPemilik(String searchTerm, String namaPemilik) {
-        return kendaraanRepository.search(searchTerm, namaPemilik);
+    public List<Kendaraan> searchByIdOrByNamaPemilik(String searchTerm) {
+        return kendaraanRepository.search(searchTerm);
     }
 
 }

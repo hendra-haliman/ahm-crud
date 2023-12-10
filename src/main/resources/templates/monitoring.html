@@ -19,11 +19,12 @@
         <div class="container-fluid">
           <form th:action="@{/searchKendaraan}" method="post" th:object="${search}" class="myform">
             <div class="header row" id='header'>
-                <div class="col-md-7"><h2>Aplikasi Data Kendaraan</h2></div>
+                <div class="col-md-6"><h2>Aplikasi Data Kendaraan</h2></div>
                 <div class="col-md-3"><input type="text" th:field="*{searchTerm}" class="form-control" id="search"/></div>
-                <div class="col-md-2 text-right">
-                    <button class="btn btn-primary" id="btn-search" type="submit">Search</button>
-                    <button class="btn btn-primary" id="btn-add" th:href="@{/add}">Add</button>
+                <div class="col-md-3 text-right">
+                    <button class="btn btn-primary" id="btn-search" type="submit"  name="action" value="search">Search</button>
+                    <button class="btn btn-primary" id="btn-clear"  name="action" value="clear">X</button>
+                    <button class="btn btn-primary" id="btn-add" th:href="@{/add}" name="action" value="add" type="submit">Add</button>
                 </div>
             </div>
 
@@ -107,12 +108,18 @@
         <script type="text/javascript">
                 var tempNoRegistrasi;
    
-                    $("#btn-add").on("click", function(e) {
-                        window.location.href="/add";
-                    });
                 
                 $(document).ready(function() {
-                    $("#confirm-delete").on("click", function(e) {
+                  $("#btn-add").on("click", function(e) {
+                        window.location.href="/add";
+                    });
+
+                  $("#btn-clear").on("click", function(e) {
+                      e.preventDefault;
+                      $('#search').val('');
+                  });
+
+                  $("#confirm-delete").on("click", function(e) {
                         $.ajax({
                           type: "GET",
                           url: "/delete",

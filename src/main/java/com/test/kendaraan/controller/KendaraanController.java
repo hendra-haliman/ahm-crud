@@ -1,5 +1,6 @@
 package com.test.kendaraan.controller;
 
+import java.util.Arrays;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -118,8 +119,13 @@ public class KendaraanController {
     }
 
     @PostMapping("searchKendaraan")
-    public String searchKendaraan(Model model, @Valid @ModelAttribute("search") Search search) {
+    public String searchKendaraan(Model model,
+            @Valid @ModelAttribute("search") Search search,
+            @RequestParam(value = "action", required = true) String action) {
         List<Kendaraan> kendaraanList;
+        if (action.equals("add")) {
+            return "redirect:/add";
+        }
 
         if ((search == null) || (Strings.isEmpty(search.getSearchTerm()))) {
             kendaraanList = kendaraanService.listKendaraan();

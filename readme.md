@@ -1,5 +1,9 @@
 This repo contains a Java Springboot CRUD application.
 
+### Status
+WIP (Work In Progress)
+
+
 ### To run this app, simply:
 1. Create database in MariaDB. You may need to customise credentials to suit.
 2. Run create.sql against database to populate db with some data.

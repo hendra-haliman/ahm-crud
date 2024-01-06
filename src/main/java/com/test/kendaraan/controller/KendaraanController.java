@@ -21,13 +21,18 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.test.kendaraan.model.Kendaraan;
+import com.test.kendaraan.model.Owner;
 import com.test.kendaraan.model.Search;
+import com.test.kendaraan.repository.OwnerRepository;
 import com.test.kendaraan.service.KendaraanService;
 
 @Controller
 public class KendaraanController {
     @Autowired
     private KendaraanService kendaraanService;
+
+    @Autowired
+    private OwnerRepository ownerRepository;
 
     @InitBinder
     public void initBinder(WebDataBinder dataBinder) {
@@ -60,12 +65,16 @@ public class KendaraanController {
     @GetMapping("/add")
     public String addKendaraan(Model model) {
         model.addAttribute("kendaraan", new Kendaraan());
+        List<Owner> ownerList = ownerRepository.findAll();
+        model.addAttribute("ownerList", ownerList);
+
         return "add";
     }
 
     @PostMapping("saveKendaraan")
     public String saveKendaraan(@Valid @ModelAttribute("kendaraan") Kendaraan kendaraan, BindingResult errors,
-            RedirectAttributes redirectAttributes, @RequestParam(value = "action", required = true) String action) {
+            RedirectAttributes redirectAttributes, @RequestParam(value = "action", required = true) String action,
+            Model model) {
 
         if (action.equals("cancel")) {
             return "redirect:monitoring";
@@ -73,10 +82,13 @@ public class KendaraanController {
 
         if (errors.hasErrors()) {
             // redirectAttributes.addFlashAttribute("message", "Failed");
+            List<Owner> ownerList = ownerRepository.findAll();
+            model.addAttribute("ownerList", ownerList);
+
             return "add";
         } else {
             redirectAttributes.addFlashAttribute("message", "Success");
-            redirectAttributes.addFlashAttribute("pemilik", kendaraan.getNamaPemilik());
+            // redirectAttributes.addFlashAttribute("pemilik", kendaraan.getNamaPemilik());
             kendaraanService.addKendaraan(kendaraan);
         }
 
@@ -84,7 +96,8 @@ public class KendaraanController {
     }
 
     @GetMapping("/edit")
-    public String editKendaraan(Model model, @RequestParam(name = "noRegistrasi") String noRegistrasi) {
+    public String editKendaraan(Model model,
+            @RequestParam(name = "noRegistrasi") String noRegistrasi) {
         Kendaraan kendaraan = kendaraanService.findById(noRegistrasi);
         model.addAttribute("kendaraan", kendaraan);
         return "edit";

@@ -1,6 +1,6 @@
-.container {
+.container-fluid {
     padding: 20px;
-    background-color: #f0f7ff;
+    background-color: #8fb0d6;
 }
 
 .table {
@@ -11,7 +11,7 @@
     margin: 20px;
 }
 
-#modal-registrasi-id {
+#modal-registrasi-id, #modal-registrasi-id2 {
     font-weight: bold;
 }
 

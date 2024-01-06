@@ -18,10 +18,13 @@
     <body>        
         <div class="container-fluid">
           <form th:action="@{/searchKendaraan}" method="post" th:object="${search}" class="myform">
-            <div class="header row" id='header'>
-                <div class="col-md-6"><h2>Aplikasi Data Kendaraan</h2></div>
-                <div class="col-md-3"><input type="text" th:field="*{searchTerm}" class="form-control" id="search"/></div>
-                <div class="col-md-3 text-right">
+            <div class="row">
+                <div class="col-md-12"><h2>Aplikasi Data Kendaraan</h2></div>
+            </div>
+            <div class="header row">
+                <div class="col-md-6"></div>              
+                <div class="col-md-3" id="search"><input type="text" th:field="*{searchTerm}" class="form-control" id="search"/></div>
+                <div class="col-md-3">
                     <button class="btn btn-primary" id="btn-search" type="submit"  name="action" value="search">Search</button>
                     <button class="btn btn-primary" id="btn-clear"  name="action" value="clear">X</button>
                     <button class="btn btn-primary" id="btn-add" th:href="@{/add}" name="action" value="add" type="submit">Add</button>
@@ -47,7 +50,7 @@
                         <tr>
                             <td>[[${rowStat.index + 1}]]</td>
                             <td>[[${kendaraan.noRegistrasi}]]</td>
-                            <td>[[${kendaraan.namaPemilik}]]</td>
+                            <td>[[${kendaraan.owner.firstname}]] [[${kendaraan.owner.lastname}]]</td>
                             <td>[[${kendaraan.merk}]]</td>
                             <td>[[${kendaraan.tahunPembuatan}]]</td>
                             <td>[[${kendaraan.kapasitasSelinder}]]</td>
@@ -106,48 +109,48 @@
         </div>
         
         <script type="text/javascript">
-                var tempNoRegistrasi;
-   
-                
-                $(document).ready(function() {
-                  $("#btn-add").on("click", function(e) {
-                        window.location.href="/add";
-                    });
+          var tempNoRegistrasi;
 
-                  $("#btn-clear").on("click", function(e) {
-                      e.preventDefault;
-                      $('#search').val('');
-                  });
+          
+          $(document).ready(function() {
+            $("#btn-add").on("click", function(e) {
+              window.location.href="/add";
+            });
 
-                  $("#confirm-delete").on("click", function(e) {
-                        $.ajax({
-                          type: "GET",
-                          url: "/delete",
-                          data: {
-                            noRegistrasi: tempNoRegistrasi
-                          },
-                          success: function( result ) {
-                            $('#deleted-modal').modal('show');
-                            setTimeout(function(){
-                                window.location.reload();        
-                            },3000);
-                            
-                          }
-                        });                    
-                    });
-                                        
-                    $("#delete-modal").on("show.bs.modal", function(e) {
-                        var obj = $(e.relatedTarget);
-                        var recipient = obj.data('myattr');
-                        var modal = $(this);
-                        modal.find('#modal-registrasi-id').text(recipient);
-                        modal.find('#modal-registrasi-id2').text(recipient);
-                        tempNoRegistrasi = recipient;
-                    });
-                    
+            $("#btn-clear").on("click", function(e) {
+              e.preventDefault;
+              $('#search').val('');
+            });
 
-                });
+            $("#confirm-delete").on("click", function(e) {
+              $.ajax({
+                type: "GET",
+                url: "/ahm/delete",
+                data: {
+                  noRegistrasi: tempNoRegistrasi
+                },
+                success: function( result ) {
+                  $('#deleted-modal').modal('show');
+                  setTimeout(function(){
+                      window.location.reload();        
+                  },3000);
+                  
+                }
+              });                    
+            });
+                                  
+            $("#delete-modal").on("show.bs.modal", function(e) {
+              var obj = $(e.relatedTarget);
+              var recipient = obj.data('myattr');
+              var modal = $(this);
+              modal.find('#modal-registrasi-id').text(recipient);
+              $('#modal-registrasi-id2').text(recipient);
+              tempNoRegistrasi = recipient;
+            });
+              
+
+          });
         </script>
-        
+
     </body>
 </html>

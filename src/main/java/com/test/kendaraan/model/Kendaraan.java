@@ -1,9 +1,11 @@
 package com.test.kendaraan.model;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -20,8 +22,8 @@ public class Kendaraan {
     @NoRegistrasiConstraint
     private String noRegistrasi;
 
-    @Size(min = 1, max = 20, message = "${kendaraan.namaPemilik.size}")
-    private String namaPemilik;
+    // @Size(min = 1, max = 20, message = "${kendaraan.namaPemilik.size}")
+    // private String namaPemilik;
 
     private String alamat;
     private String merk;
@@ -32,5 +34,8 @@ public class Kendaraan {
     private WarnaKendaraan warnaKendaraan;
 
     private String bahanBakar;
+
+    @ManyToOne(cascade = { CascadeType.REFRESH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.PERSIST })
+    private Owner owner;
 
 }

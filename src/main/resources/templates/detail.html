@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en" 
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://thymeleaf.org">
+    <head>
+        <title>Detail Data Kendaraan</title>
+        <meta charset="UTF-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"/>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"  crossorigin="anonymous"/>
+        <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
+        <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"  crossorigin="anonymous"></script>
+        
+    </head>
+    <body>
+        <div class="container-fluid">
+            <table class="table table-secondary table-striped">
+                <thead>
+                    <tr>
+                        <th>Detail Data Kendaraan</th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="col-md-2">No Registrasi</td>
+                        <td class="col-md-4" th:text="${kendaraan.noRegistrasi}"></td>
+                        <td class="col-md-2">Tahun Pembuatan</td>
+                        <td class="col-md-4" th:text="${kendaraan.tahunPembuatan}"></td>    
+                    </tr>
+                    <tr>
+                        <td class="col-md-2">Nama Pemilik</td>
+                        <td class="col-md-4" th:text="${kendaraan.namaPemilik}"></td>
+                        <td class="col-md-2">Kapasitas Selinder</td>
+                        <td class="col-md-4" th:text="${kendaraan.kapasitasSelinder}"></td>    
+                    </tr>
+                    <tr>
+                        <td class="col-md-2">Merk Kendaraan</td>
+                        <td class="col-md-4" th:text="${kendaraan.merk}"></td>
+                        <td class="col-md-2">Warna Kendaraan</td>
+                        <td class="col-md-4" th:text="${kendaraan.warnaKendaraan}"></td>    
+                    </tr>
+                    <tr>
+                        <td class="col-md-2">Alamat Pemilik Kendaraan</td>
+                        <td class="col-md-4" th:text="${kendaraan.alamat}"></td>
+                        <td class="col-md-2"></td>
+                        <td class="col-md-4"></td>    
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        
+    </body>
+
+</html>
